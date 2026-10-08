@@ -5,6 +5,7 @@ ROS2-only：当前验证目标为 NX 的 Ubuntu 22.04 / ROS 2 Humble / ARM64。
 六轮六转 MarsRover 的底层接受 `Twist`，本包按差速机器人使用 NavFn + DWB 和 AMCL DifferentialMotionModel。
 不复制底盘协议实现；复用现场 ROS 2 `tianbot_core`、`rslidar_sdk` 驱动。
 Mars URDF 来源于 192.168.1.42 当前部署模型，其网格仍由 `tianbot_description` 提供。
+2026-10-08 已修正转向原点、悬架父子关系和关节坐标系；见 [模型说明](MODEL.md)。
 
 ## 构建
 
