@@ -100,6 +100,20 @@ ros2 launch tianrover navigation.launch.py
 也可设置 `TIANROVER_MAP` 或 `map:=/absolute/map.yaml`；保存支持 `map_name:=/absolute/map`。
 RViz 的初始位姿和目标话题会跟随同一 namespace。
 
+### 在 RViz 看模型
+
+配套 RViz 默认启用 RobotModel，从对应 namespace 的 `robot_description` 话题加载 URDF，
+TF Prefix 与机器人名称一致。仅查看模型时，两个终端分别运行：
+
+```bash
+ros2 launch tianrover description.launch.py
+ros2 launch tianrover rviz.launch.py fixed_frame:=mars/base_footprint
+```
+
+`mars` 替换为当前 `TIANBOT_NAME`。导航时保留默认 map 固定坐标系并确保 AMCL 已初始化。
+已有 bringup 包含 description，无需重复启动。RViz 的 Views 可选择 Orbit 以旋转查看三维模型。
+在其他电脑运行 RViz 时，该电脑也需要 `tianbot_description` 包及对应 STL；TF 话题不会传输网格文件。
+
 ## 增加硬件而不增加 launch 分叉
 
 `TIANROVER_BASE`、`TIANROVER_LIDAR`、`TIANROVER_DESCRIPTION` 选择组件名，`none` 表示关闭。

@@ -131,8 +131,11 @@ def setup(context, mode):
                      arguments=['-t', cfg.topic('map'), '-f', str(filename)])]
     if mode == 'rviz':
         with open(Path(share()) / 'config/view.rviz') as stream:
-            text = stream.read().replace('@MAP@', cfg.frame('map')).replace('@SCAN@', cfg.topic('scan'))
+            text = stream.read().replace('@MAP@', LaunchConfiguration('fixed_frame').perform(context))
+            text = text.replace('@SCAN@', cfg.topic('scan'))
             text = text.replace('@MAP_TOPIC@', cfg.topic('map'))
+            text = text.replace('@DESCRIPTION_TOPIC@', cfg.topic('robot_description'))
+            text = text.replace('@TF_PREFIX@', cfg.namespace)
         handle = tempfile.NamedTemporaryFile(mode='w', suffix='.rviz', delete=False)
         with handle:
             handle.write(text)
@@ -154,4 +157,6 @@ def entry(mode):
         args.append(DeclareLaunchArgument('map', default_value=cfg.get('MAP', str(cfg.maps_dir / 'map.yaml'))))
     if mode == 'map_save':
         args.append(DeclareLaunchArgument('map_name', default_value=str(cfg.maps_dir / 'map')))
+    if mode == 'rviz':
+        args.append(DeclareLaunchArgument('fixed_frame', default_value=cfg.frame('map')))
     return LaunchDescription(args + [OpaqueFunction(function=lambda context: setup(context, mode))])

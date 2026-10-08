@@ -29,6 +29,18 @@ Visualization Manager:
     - Class: rviz_default_plugins/TF
       Name: TF
       Enabled: true
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Source: Topic
+      Description Topic:
+        Value: "@DESCRIPTION_TOPIC@"
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      TF Prefix: "@TF_PREFIX@"
+      Visual Enabled: true
+      Collision Enabled: false
+      Alpha: 1
   Tools:
     - Class: rviz_default_plugins/Interact
     - Class: rviz_default_plugins/MoveCamera
