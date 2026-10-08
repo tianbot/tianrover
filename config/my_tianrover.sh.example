@@ -1,0 +1,23 @@
+# Copy to ~/.config/tianrover/my_tianrover.sh; source the workspace again.
+# Do not edit the tracked defaults for a deployment.
+export TIANBOT_NAME=mars
+export TIANROVER_BASE=tianbot_core
+export TIANROVER_BASE_PORT=/dev/tianbot_base
+export TIANROVER_BASE_BAUDRATE=460800
+export TIANROVER_LIDAR=rslidar
+export TIANROVER_LIDAR_MODEL=RSHELIOS_16P
+# NX receiving interface; 0.0.0.0 accepts packets on all local interfaces.
+export TIANROVER_LIDAR_HOST=0.0.0.0
+export TIANROVER_DESCRIPTION=mars
+# Limits are commissioning defaults; verify the physical footprint on site.
+export TIANROVER_MAX_SPEED=0.20
+export TIANROVER_MAX_YAW_RATE=0.40
+export TIANROVER_ROBOT_RADIUS=0.65
+export TIANROVER_SCAN_MIN_HEIGHT=-0.10
+export TIANROVER_SCAN_MAX_HEIGHT=0.10
+# Height band is relative to the laser frame, whose measured URDF height is 0.677m.
+# export TIANROVER_MAP=$HOME/.local/share/tianrover/maps/mars/map.yaml
+# External adapter directory may contain base/, lidar/, description/ launch files.
+# export TIANROVER_COMPONENT_DIR=$HOME/.config/tianrover/components
+# export TIANROVER_NAV_PARAMS=$HOME/.config/tianrover/nav2.yaml
+# export TIANROVER_URDF=$HOME/.config/tianrover/robot.urdf

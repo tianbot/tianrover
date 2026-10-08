@@ -1,0 +1,17 @@
+--- a/node/rslidar_sdk_node.cpp
++++ b/node/rslidar_sdk_node.cpp
+@@ -99,6 +99,14 @@
+   }
+ #endif
+ 
++#ifdef ROS2_FOUND
++  {
++    // ROS 2 must honor launch-provided configuration just as ROS 1 does.
++    rclcpp::Node config_node("rslidar_config");
++    config_path = config_node.declare_parameter<std::string>("config_path", config_path);
++  }
++#endif
++
+   YAML::Node config;
+   try
+   {

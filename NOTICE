@@ -1,0 +1,13 @@
+TianRover launch framework: BSD-3-Clause, Tianbot.
+
+config/nav2.yaml derives from Navigation2's Humble nav2_bringup/params/nav2_params.yaml.
+Navigation2 is distributed under the Apache License, Version 2.0.
+Upstream: https://github.com/ros-navigation/navigation2/tree/humble
+License: https://www.apache.org/licenses/LICENSE-2.0
+Modifications: MarsRover frame choices, conservative acceleration, footprint/inflation
+defaults; runtime environment overrides and namespace resolution are implemented
+separately in tianrover/config.py and tianrover/launching.py.
+
+urdf/mars.urdf is the model deployed on the user's NX at 192.168.1.42,
+retrieved 2026-10-07. Meshes are provided by the existing tianbot_description
+underlay. The new package does not modify that underlay model.
