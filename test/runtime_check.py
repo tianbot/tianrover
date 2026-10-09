@@ -49,7 +49,8 @@ def main():
     map_qos = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
     for ns in names:
         from sensor_msgs.msg import PointCloud2
-        pubs.append((ns, node.create_publisher(PointCloud2, '/' + ns + '/points', qos),
+        pubs.append((ns, node.create_publisher(PointCloud2, '/' + ns + '/points',
+                         QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE)),
                      node.create_publisher(Odometry, '/' + ns + '/odom', 10)))
         subscriptions.append(node.create_subscription(LaserScan, '/' + ns + '/scan',
                              lambda msg, name=ns: scans.__setitem__(name, msg), qos))

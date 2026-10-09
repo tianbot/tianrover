@@ -58,9 +58,51 @@ NX 上构建与 `colcon test` 通过，`colcon test-result --verbose` 为 19 tes
 最大 TF 矩阵误差约 `2.3e-16`。未连接底盘或发送运动指令，所有测试进程退出后停止。
 
 可复查：`python3 src/tianrover/test/model_runtime_check.py`。
+脚本还覆盖 `description.launch.py use_joint_state_publisher:=false`，验证默认零位发布者关闭后，
+模型能响应隔离测试域中的合成关节输入。这不是实车反馈验收。
 日志：NX `/tmp/tianrover-model-build.log`、`/tmp/tianrover-model-test.log`、
 `/tmp/tianrover-model-tf.log` 与 `/tmp/tianrover_model_tf_8ad4pkm9/`。
 坐标约定参考 [REP-103](https://github.com/ros-infrastructure/rep/blob/master/rep-0103.rst)。
+
+## 实车反馈接入
+
+2026-10-08 在 NX 检查 `/mars/joint_states`：5 秒 51 帧，16 个关节位置全部为零，
+发布者为默认 `joint_state_publisher`。后续 bringup 启动后出现里程计，但未出现电机关节位置话题，
+并与独立 description 形成两套同名模型节点。
+
+已检查的 NX `tianbot_core` 中，`tianrover` 分支未实现 `JointState` 发布。
+DYN 的四电机完整反馈结构虽然有 `output_position_rad`，其 ROS 消息未包含该字段；
+紧凑结构本身也没有位置。这不构成六轮 TianRover 的反馈接口，不能按索引直接套用。
+是否已有固件上传六轮及转向角度，仍需核对实际固件协议与接收数据。
+
+接入顺序：
+
+1. 核对固件的实际测量位置、更新频率、电机 ID、单位、减速比、零点和方向。
+2. 驱动将测量结果映射到本模型关节，发布同一 namespace 的 `joint_states`，位置单位为 rad。
+   六轮轴为 `WheelLF_`、`WheelLM_`、`WheelLB_`、`WheelRF`、`WheelRM_`、`WheelRB_`；
+   六转向为 `BogieLF_`、`BogieLM_`、`BogieLB_`、`BogieRF_`、`BogieRM_`、`BogieRB_`。
+   用户已确认：左右各两个 rocker-bogie 被动关节没有编码器，保留中立展示姿态，
+   不把它们列为电机反馈接入的必需项，也不宣称其姿态为实测值。
+3. 停止已有 description，启用唯一一套模型节点并设置 `use_joint_state_publisher:=false`，
+   避免零位消息与真实数据交替覆盖。
+4. 分别验证关节角与动态 TF，以及独立的 `odom → base_footprint` 位姿 TF。
+
+不得将 `cmd_vel` 积分或控制目标角度冒充实际测量位置。缺失真实反馈时，本参数只能准备接入路径，
+不能让实车模型准确反映电机运动。
+
+本次接入准备已在本机和 NX 的隔离域验证：关闭默认发布者后，六转向、六轮轴和左右主摇臂的
+合成位置均正确更新 TF，最大误差约 `2.2e-16`。NX 构建通过，包测试 19 tests、0 errors、
+0 failures、0 skipped；日志为 `/tmp/tianrover-feedback-build.log`、`/tmp/tianrover-feedback-tf.log`、
+`/tmp/tianrover-feedback-test-result.log`。
+
+现场已停止重复的独立 description，并将 RViz 切到 `mars/odom`，未重启底盘驱动。
+再次采样 5 秒：1 个关节发布者、45 帧全零位置；260 帧里程计与 258 帧
+`mars/odom → mars/base_footprint` TF。保留唯一的展示发布者，等待真实反馈接入后关闭。
+主动轮轴和转向的真实显示仍需确认反馈能力、协议及电机到关节的对应关系。
+用户确认旧版 Gazebo 会提供关节状态；仿真中的模型运动不能证明实车驱动具有位置上传接口。
+目前已检查的实车驱动缺少该接口，因此缺失数据不是 URDF 本身不响应。
+将来只发布十二个主动关节时，还需由展示节点单独维持四个被动关节的中立 TF；
+不能直接关闭全部展示发布者后遗漏被动关节，也不能让全零展示消息覆盖主动反馈。
 
 ## Git 与回退
 

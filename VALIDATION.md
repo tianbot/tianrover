@@ -1,5 +1,8 @@
 # 验证记录（2026-10-07）
 
+2026-10-08 的 odom/IMU 融合实现、隔离运动测试及实车并行检查见 [EKF.md](EKF.md)。
+融合已发布独立输出，但尚未通过真实距离/转角精度验收，原底盘 TF 保持运行。
+
 目标设备：192.168.1.42，tianbot-nx，Ubuntu 22.04.5 / ARM64 / ROS 2 Humble。
 新工作区：`~/tianrover_ws`。配置：`~/.config/tianrover/my_tianrover.sh`，默认机器人名 `mars`。
 复用原 `~/tianbot_ws` 的底盘驱动和模型网格；新工作区有独立的 RoboSense SDK 副本及配置路径兼容补丁。

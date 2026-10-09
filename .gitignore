@@ -1,3 +1,14 @@
 env-hooks/99.my_tianrover.sh
 __pycache__/
 .pytest_cache/
+build/
+install/
+log/
+*.db
+*.db-*
+*.pcd
+*.bag
+*.mcap
+*.db3
+bags/
+maps/

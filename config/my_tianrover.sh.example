@@ -9,6 +9,13 @@ export TIANROVER_LIDAR_MODEL=RSHELIOS_16P
 # NX receiving interface; 0.0.0.0 accepts packets on all local interfaces.
 export TIANROVER_LIDAR_HOST=0.0.0.0
 export TIANROVER_DESCRIPTION=mars
+# Set true after EKF sensor/frame and motion validation. Driver retains odom_raw;
+# EKF owns odom and odom -> base_footprint TF. Standalone ekf.launch is TF-free.
+export TIANROVER_USE_EKF=false
+# Initial uncertainty only; replace with measured rolling/heading uncertainty.
+# export TIANROVER_EKF_VELOCITY_VARIANCE=0.0025
+# export TIANROVER_EKF_YAW_VARIANCE=0.0025
+# export TIANROVER_EKF_PARAMS=$HOME/.config/tianrover/ekf.yaml
 # Limits are commissioning defaults; verify the physical footprint on site.
 export TIANROVER_MAX_SPEED=0.20
 export TIANROVER_MAX_YAW_RATE=0.40

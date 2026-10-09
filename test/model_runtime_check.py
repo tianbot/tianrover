@@ -20,7 +20,6 @@ import rclpy
 from ament_index_python.packages import get_package_share_directory
 from sensor_msgs.msg import JointState
 from tf2_ros import Buffer, TransformListener
-import yaml
 
 
 def main():
@@ -97,12 +96,16 @@ def main():
         assert description.poll() is None
         print(f'PASS installed description.launch.py: all prefixed neutral TF frames, error={error}', flush=True)
         stop(description)
-        # For motion tests replace only the default display-state publisher, not any hardware driver.
-        params = workspace / 'rsp.yaml'
-        params.write_text(yaml.safe_dump({'/**': {'ros__parameters': {
-            'robot_description': installed.read_text(), 'frame_prefix': 'mars_model_check/'}}}))
-        rsp = start(['ros2', 'run', 'robot_state_publisher', 'robot_state_publisher', '--ros-args',
-                     '-r', '__ns:=/mars_model_check', '--params-file', str(params)], 'moving_model')
+        # Exercise the real feedback launch path, with no default-zero publisher.
+        rsp = start(['ros2', 'launch', 'tianrover', 'description.launch.py',
+                     'use_joint_state_publisher:=false'], 'moving_model')
+        deadline = time.monotonic() + 15
+        while time.monotonic() < deadline:
+            rclpy.spin_once(node, timeout_sec=0.1)
+            if node.count_subscribers('/mars_model_check/joint_states'):
+                break
+        assert node.count_publishers('/mars_model_check/joint_states') == 1, \
+            'Only the isolated probe may publish joint_states in feedback mode'
         for angle in (-0.6, 0.6):
             pose = {'Bogie' + code + '_': angle for code in ('LF', 'LM', 'LB', 'RF', 'RM', 'RB')}
             error = wait_for_pose(pose, publish=True)

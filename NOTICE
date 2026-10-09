@@ -11,3 +11,18 @@ separately in tianrover/config.py and tianrover/launching.py.
 urdf/mars.urdf is the model deployed on the user's NX at 192.168.1.42,
 retrieved 2026-10-07. Meshes are provided by the existing tianbot_description
 underlay. The new package does not modify that underlay model.
+
+config/cartographer.lua derives from the existing Tianbot Cartographer configuration,
+which preserves The Cartographer Authors' Apache-2.0 header. Cartographer ROS is
+installed as the ROS 2 Humble distribution package.
+
+Gmapping is a separately imported upstream source dependency, pinned by
+dependencies-2d.repos to Adlink-ROS/slam_gmapping 0559987de50371356b4caeca93e5ba59efee7543.
+Its slam_gmapping and openslam_gmapping package.xml files declare
+CreativeCommons-by-nc-sa-2.0. This integration does not relicense those dependencies
+as TianRover BSD-3-Clause or make a commercial-use license claim.
+Upstream: https://github.com/Adlink-ROS/slam_gmapping
+
+pointcloud_to_laserscan is imported from its official Humble branch at
+59bf996fb3ee7db0026a5cd3ce0d2a39d2e602ea (BSD). The local patch adds an optional
+reliable_cloud input QoS parameter; upstream default remains false.
