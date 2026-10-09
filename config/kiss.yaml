@@ -1,0 +1,14 @@
+data.deskew: true
+data.max_range: 30.0
+data.min_range: 0.5
+mapping.voxel_size: 0.3
+mapping.max_points_per_voxel: 20
+adaptive_threshold.initial_threshold: 2.0
+adaptive_threshold.min_motion_th: 0.1
+registration.max_num_iterations: 100
+registration.convergence_criterion: 0.0001
+registration.max_num_threads: 4
+position_covariance: 0.05
+orientation_covariance: 0.02
+publish_debug_clouds: true
+reliable_cloud: true

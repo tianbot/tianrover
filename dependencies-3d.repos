@@ -1,0 +1,9 @@
+repositories:
+  kiss_icp_vendor:
+    type: git
+    url: https://github.com/PRBonn/kiss-icp.git
+    version: 1ffa7d7512f10bfc8b1185095011fa31184019e3
+  fast_lio_vendor:
+    type: git
+    url: https://github.com/Ericsii/FAST_LIO_ROS2.git
+    version: 2fffc570a25d0df172720bac034fbdb6a13d2162
