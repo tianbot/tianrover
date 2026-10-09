@@ -1,0 +1,9 @@
+repositories:
+  gmapping_vendor:
+    type: git
+    url: https://github.com/Adlink-ROS/slam_gmapping.git
+    version: 0559987de50371356b4caeca93e5ba59efee7543
+  pointcloud_to_laserscan_vendor:
+    type: git
+    url: https://github.com/ros-perception/pointcloud_to_laserscan.git
+    version: 59bf996fb3ee7db0026a5cd3ce0d2a39d2e602ea
