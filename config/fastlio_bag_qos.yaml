@@ -1,0 +1,20 @@
+/tf_static:
+  history: keep_last
+  depth: 100
+  reliability: reliable
+  durability: transient_local
+/mars/points:
+  history: keep_last
+  depth: 20
+  reliability: reliable
+  durability: volatile
+/mars/zed2i/imu/data:
+  history: keep_last
+  depth: 1000
+  reliability: best_effort
+  durability: volatile
+/mars/imu:
+  history: keep_last
+  depth: 1000
+  reliability: best_effort
+  durability: volatile

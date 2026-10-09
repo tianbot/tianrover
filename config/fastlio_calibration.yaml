@@ -1,0 +1,10 @@
+# Pending external calibration. No measured lidar-to-ZED-IMU values yet.
+# p_imu = extrinsic_R * p_lidar + extrinsic_T; row-major R, metres T.
+# FAST-LIO applies t_imu_corrected = t_imu - time_offset_lidar_to_imu (seconds).
+calibration_confirmed: false
+imu_source: zed
+extrinsic_T: null
+extrinsic_R: null
+time_offset_lidar_to_imu: null
+# Reject a scan if measured IMU samples cannot bracket it or contain larger gaps.
+max_imu_gap: 0.1

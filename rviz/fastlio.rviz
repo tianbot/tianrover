@@ -1,0 +1,48 @@
+Panels:
+  - Class: rviz_common/Displays
+Visualization Manager:
+  Global Options:
+    Fixed Frame: mars/odom_lidar
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 1
+      Plane: XY
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+    - Class: rviz_default_plugins/PointCloud2
+      Name: FAST-LIO deskewed scan
+      Enabled: true
+      Topic:
+        Value: /mars/lidar/cloud_deskewed
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Depth: 5
+      Style: Points
+      Size (Pixels): 2
+      Color Transformer: Intensity
+    - Class: rviz_default_plugins/Path
+      Name: FAST-LIO trajectory
+      Enabled: true
+      Topic:
+        Value: /mars/fastlio/path
+        Reliability Policy: Reliable
+    - Class: rviz_default_plugins/PointCloud2
+      Name: RTAB-Map cloud
+      Enabled: true
+      Topic:
+        Value: /mars/cloud_map
+        Reliability Policy: Reliable
+      Style: Points
+      Size (Pixels): 2
+      Color Transformer: RGB8
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 10

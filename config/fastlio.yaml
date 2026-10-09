@@ -1,0 +1,30 @@
+# Ericsii FAST_LIO_ROS2 2fffc570a25d0df172720bac034fbdb6a13d2162
+# H16 XYZIRT is converted to measured Velodyne-compatible ring/time seconds.
+common.time_sync_en: false
+preprocess.lidar_type: 2
+preprocess.scan_line: 16
+preprocess.timestamp_unit: 0
+preprocess.scan_rate: 10
+preprocess.blind: 0.5
+feature_extract_enable: false
+point_filter_num: 1
+max_iteration: 4
+filter_size_surf: 0.2
+filter_size_map: 0.3
+cube_side_length: 100.0
+mapping.det_range: 30.0
+mapping.fov_degree: 360.0
+mapping.gyr_cov: 0.1
+mapping.acc_cov: 0.1
+mapping.b_gyr_cov: 0.0001
+mapping.b_acc_cov: 0.0001
+mapping.extrinsic_est_en: false
+publish.path_en: true
+publish.scan_publish_en: true
+publish.dense_publish_en: true
+publish.scan_bodyframe_pub_en: true
+publish.map_en: false
+publish.effect_map_en: false
+publish.odom_tf: false
+runtime_pos_log_enable: false
+pcd_save.pcd_save_en: false

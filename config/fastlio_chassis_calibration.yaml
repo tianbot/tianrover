@@ -1,0 +1,10 @@
+# Chassis IMU evaluation only: CAD mount, not measured external calibration.
+# p_imu = extrinsic_R * p_lidar + extrinsic_T; metres, row-major rotation.
+# Driver timestamps serial packet reception on the host, not hardware sampling.
+# Keep strict gap checking; do not compensate missing samples with fake times.
+imu_source: chassis
+calibration_confirmed: false
+extrinsic_T: null
+extrinsic_R: null
+time_offset_lidar_to_imu: null
+max_imu_gap: 0.1
