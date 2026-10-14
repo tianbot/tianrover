@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>tianrover_localization</name>
+  <version>0.1.0</version>
+  <description>MarsRover wheel/IMU fusion and laser localization.</description>
+  <maintainer email="support@tianbot.com">Tianbot</maintainer>
+  <license>BSD-3-Clause</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>tf2_msgs</depend>
+  <exec_depend>tianrover_common</exec_depend>
+  <exec_depend>tianrover_slam</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>kiss_icp</exec_depend>
+  <exec_depend>fast_lio</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>sensor_msgs_py</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <test_depend>ament_cmake_pytest</test_depend>
+  <test_depend>python3-pytest</test_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

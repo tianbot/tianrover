@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>tianrover_navigation</name>
+  <version>0.1.0</version>
+  <description>MarsRover ground navigation.</description>
+  <maintainer email="support@tianbot.com">Tianbot</maintainer>
+  <license>BSD-3-Clause</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <exec_depend>tianrover_common</exec_depend>
+  <exec_depend>tianrover_localization</exec_depend>
+  <exec_depend>tianrover_slam</exec_depend>
+  <exec_depend>navigation2</exec_depend>
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>nav2_map_server</exec_depend>
+  <exec_depend>nav2_amcl</exec_depend>
+  <exec_depend>nav2_controller</exec_depend>
+  <exec_depend>nav2_smoother</exec_depend>
+  <exec_depend>nav2_planner</exec_depend>
+  <exec_depend>nav2_behaviors</exec_depend>
+  <exec_depend>nav2_bt_navigator</exec_depend>
+  <exec_depend>nav2_waypoint_follower</exec_depend>
+  <exec_depend>nav2_velocity_smoother</exec_depend>
+  <exec_depend>nav2_lifecycle_manager</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

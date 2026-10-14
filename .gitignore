@@ -1,4 +1,4 @@
-env-hooks/99.my_tianrover.sh
+tianrover_bringup/env-hooks/99.my_tianrover.sh
 __pycache__/
 .pytest_cache/
 build/

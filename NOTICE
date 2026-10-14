@@ -1,23 +1,27 @@
 TianRover launch framework: BSD-3-Clause, Tianbot.
 
-config/nav2.yaml derives from Navigation2's Humble nav2_bringup/params/nav2_params.yaml.
+tianrover_navigation/config/nav2.yaml derives from Navigation2's Humble nav2_bringup/params/nav2_params.yaml.
 Navigation2 is distributed under the Apache License, Version 2.0.
 Upstream: https://github.com/ros-navigation/navigation2/tree/humble
 License: https://www.apache.org/licenses/LICENSE-2.0
 Modifications: MarsRover frame choices, conservative acceleration, footprint/inflation
 defaults; runtime environment overrides and namespace resolution are implemented
-separately in tianrover/config.py and tianrover/launching.py.
+separately in tianrover_common/tianrover_common/config.py and
+tianrover_navigation/tianrover_navigation/launching.py.
 
-urdf/mars.urdf is the model deployed on the user's NX at 192.168.1.42,
-retrieved 2026-10-07. Meshes are provided by the existing tianbot_description
-underlay. The new package does not modify that underlay model.
+tianrover_description/urdf/mars.urdf is the model deployed on the user's NX at 192.168.1.42,
+retrieved 2026-10-07 and corrected as documented in docs/guides/MODEL.md.
+The 21 referenced meshes were copied unchanged from the vehicle's original
+tianbot_description on 2026-10-14 and are now shipped in tianrover_description.
+Their SHA-256 values were compared with the vehicle and recorded in
+tianrover_description/meshes.sha256. The original vehicle resources were not modified.
 
-config/cartographer.lua derives from the existing Tianbot Cartographer configuration,
+tianrover_slam/config/cartographer.lua derives from the existing Tianbot Cartographer configuration,
 which preserves The Cartographer Authors' Apache-2.0 header. Cartographer ROS is
 installed as the ROS 2 Humble distribution package.
 
 Gmapping is a separately imported upstream source dependency, pinned by
-dependencies-2d.repos to Adlink-ROS/slam_gmapping 0559987de50371356b4caeca93e5ba59efee7543.
+dependencies/dependencies-2d.repos to Adlink-ROS/slam_gmapping 0559987de50371356b4caeca93e5ba59efee7543.
 Its slam_gmapping and openslam_gmapping package.xml files declare
 CreativeCommons-by-nc-sa-2.0. This integration does not relicense those dependencies
 as TianRover BSD-3-Clause or make a commercial-use license claim.

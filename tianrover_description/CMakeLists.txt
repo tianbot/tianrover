@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.8)
+project(tianrover_description)
+find_package(ament_cmake REQUIRED)
+install(DIRECTORY launch urdf meshes DESTINATION share/${PROJECT_NAME}
+  PATTERN "__pycache__" EXCLUDE)
+install(FILES meshes.sha256 DESTINATION share/${PROJECT_NAME})
+if(BUILD_TESTING)
+  find_package(ament_cmake_pytest REQUIRED)
+  ament_add_pytest_test(test_mars_urdf test/test_mars_urdf.py)
+endif()
+ament_package()

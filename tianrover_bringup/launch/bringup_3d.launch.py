@@ -1,0 +1,5 @@
+from tianrover_bringup.launch_3d import entry
+
+
+def generate_launch_description():
+    return entry('bringup_3d')

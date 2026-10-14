@@ -1,0 +1,62 @@
+# Unknown hardware fields intentionally fail preflight. Do not mark verified without measurement.
+reference: kiss_icp_only
+namespace: mars
+laser_odom_frame: mars/odom
+base_frame: mars/base_footprint
+extrinsic_verified: false
+flat_ground_verified: false
+feedback_measured: false
+clock_alignment_verified: false
+feedback_topic: ''
+feedback_node: ''
+feedback_provenance: ''
+max_timestamp_jitter_s: null
+feedback_time_offset_s: null
+wheel_measurement: ''
+firmware_command_timeout_s: null
+planar_twist_verified: false
+geometry_source: mars.urdf neutral CAD; physical verification required
+model_sha256: 3eec1745c7da286bd22ad039d8cae415b64477648b45e9604ff5f335909c4e20
+wheels:
+  LF:
+    wheel_joint: WheelLF_
+    steering_joint: BogieLF_
+    xy:
+    - 0.571597430001228
+    - 0.3559993755564542
+    nominal_radius_m: 0.125
+  LM:
+    wheel_joint: WheelLM_
+    steering_joint: BogieLM_
+    xy:
+    - 0.004013822792656996
+    - 0.3559993755564542
+    nominal_radius_m: 0.125
+  LB:
+    wheel_joint: WheelLB_
+    steering_joint: BogieLB_
+    xy:
+    - -0.56359257
+    - 0.355999375553972
+    nominal_radius_m: 0.125
+  RF:
+    wheel_joint: WheelRF
+    steering_joint: BogieRF_
+    xy:
+    - 0.571598932428713
+    - -0.3560012194790844
+    nominal_radius_m: 0.125
+  RM:
+    wheel_joint: WheelRM_
+    steering_joint: BogieRM_
+    xy:
+    - 0.004013320954254995
+    - -0.35600121954609726
+    nominal_radius_m: 0.125
+  RB:
+    wheel_joint: WheelRB_
+    steering_joint: BogieRB_
+    xy:
+    - -0.563587911834988
+    - -0.355999999999961
+    nominal_radius_m: 0.125
