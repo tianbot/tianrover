@@ -6,6 +6,7 @@
   <maintainer email="support@tianbot.com">Tianbot</maintainer>
   <license>BSD-3-Clause</license>
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>tianrover_teleop</exec_depend>
   <exec_depend>tianrover_bringup</exec_depend>
   <exec_depend>tianrover_calibration</exec_depend>
   <exec_depend>tianrover_common</exec_depend>
