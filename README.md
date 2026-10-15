@@ -181,6 +181,28 @@ ros2 launch tianrover_navigation navigation.launch.py map:=$HOME/maps/site_01.ya
 
 日后直接使用已有地图，可以跳过建图和保存步骤：打开终端、启动设备、打开 RViz，再启动导航并设置初始位姿。
 
+### 使用三维地图导航
+
+正常退出三维建图，保留对应的三维整车驱动。以下以 FAST-LIO2 为例，
+将数据库路径替换为保存后的地图：
+
+```bash
+export TIANROVER_MAX_SPEED=0.10
+ros2 launch tianrover_navigation localize_and_navigate_3d.launch.py frontend:=fastlio \
+  use_rgbd:=true database:=$HOME/maps/mars3d_v1_saved.db
+```
+
+另开图形终端：
+
+```bash
+ros2 launch tianrover_rviz rviz.launch.py fixed_frame:=mars/map
+```
+
+使用 **2D Pose Estimate** 设置车辆位置与朝向，确认实时点云与地图对齐后，
+使用 **2D Goal Pose** 设置地面目标。未启用相机时使用 `use_rgbd:=false`；
+KISS-ICP 使用 `frontend:=kiss` 和对应地图。此入口同时启动 RTAB-Map 定位和 Nav2，无需另开 AMCL。
+驱动启动、地图准备与完整步骤见[自主导航](https://docs.tianbot.com/tianrover/guide-mars/navigation#navigation-3d)。
+
 ## 6. 停止使用
 
 先让车辆停车，使用随车停止功能确认底盘停止，再在导航或建图终端按 `Ctrl+C` 退出。
@@ -234,4 +256,4 @@ export TIANROVER_MAP=$HOME/maps/site_01.yaml
 - [Gmapping / Cartographer 二维建图](docs/guides/SLAM_2D.md)：其他建图算法及地图保存方式。
 - [车辆模型与关节显示](docs/guides/MODEL.md)：模型查看和真实关节反馈接入说明。默认关节显示为零位，不代表电机反馈。
 - [轮式里程计与 IMU 融合](docs/guides/EKF.md)：可选里程计融合，启用前需检查传感器方向和数据。
-- [三维建图与地图保存](docs/guides/THREED.md)、[FAST-LIO2](docs/guides/FASTLIO.md)：进阶使用说明。三维定位导航仍有输入掉帧和 TF 时效问题，尚未完成实车运动验收。
+- [三维建图与地图保存](docs/guides/THREED.md)、[FAST-LIO2](docs/guides/FASTLIO.md)：三维前端、地图保存和定位导航使用说明。
