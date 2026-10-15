@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Generated from Obstacle_01.dae dimensions</authoring_tool>
+    </contributor>
+    <created>2026-06-28T00:00:00</created>
+    <modified>2026-06-28T00:00:00</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects/>
+  <library_images/>
+  <library_geometries>
+    <geometry id="Obstacle_01_double_ramp-mesh" name="Obstacle_01_double_ramp">
+      <mesh>
+        <source id="Obstacle_01_double_ramp-mesh-positions">
+          <float_array id="Obstacle_01_double_ramp-mesh-positions-array" count="24">-1 -1 -1 -1 -0.25 1 -1 0.25 1 -1 1 -1 1 -1 -1 1 -0.25 1 1 0.25 1 1 1 -1</float_array>
+          <technique_common>
+            <accessor source="#Obstacle_01_double_ramp-mesh-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Obstacle_01_double_ramp-mesh-vertices">
+          <input semantic="POSITION" source="#Obstacle_01_double_ramp-mesh-positions"/>
+        </vertices>
+        <triangles count="10">
+          <input semantic="VERTEX" source="#Obstacle_01_double_ramp-mesh-vertices" offset="0"/>
+          <p>0 1 2 0 2 3 4 7 6 4 6 5 0 4 5 0 5 1 1 5 6 1 6 2 2 6 7 2 7 3 0 3 7 0 7 4</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Obstacle_01_double_ramp" name="Obstacle_01_double_ramp" type="NODE">
+        <matrix sid="transform">0.6 0 0 0 0 0.3 0 0 0 0 0.1 0.1 0 0 0 1</matrix>
+        <instance_geometry url="#Obstacle_01_double_ramp-mesh" name="Obstacle_01_double_ramp"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

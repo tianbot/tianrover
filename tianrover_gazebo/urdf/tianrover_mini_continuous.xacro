@@ -1,0 +1,1189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by TIANBOT (www.tianbot.com)
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="tianrover_mini">
+  <xacro:arg name="namespace" default="" />
+  <xacro:arg name="frame_prefix" default="" />
+  <xacro:arg name="enable_skid_rate" default="false" />
+  <xacro:include filename="$(find tianrover_gazebo)/urdf/tianrover_mini.gazebo" />
+  <link name="base_footprint">
+  </link>
+
+  <link
+    name="Body">
+    <inertial>
+      <origin
+        xyz="-0.0572676024125403 0.00772987888077795 -0.149883859575372"
+        rpy="0 0 0" />
+      <mass
+        value="30.4765584539942" />
+      <inertia
+        ixx="0.0217940583455018"
+        ixy="-1.29674278319616E-05"
+        ixz="-0.000344300816040582"
+        iyy="0.0299781511310722"
+        iyz="-2.59704765110532E-05"
+        izz="0.044595334563174" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/Body.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/Body.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+    <joint
+    name="base_footprint_joint"
+    type="fixed">
+    <parent
+      link="base_footprint" />
+    <child
+      link="Body" />
+    <origin
+      xyz="0 0 0.43"
+      rpy="0 0 0" />
+  </joint>
+
+  <link
+    name="LeftMainRocket">
+    <inertial>
+      <origin
+        xyz="0.175171234434506 0.0133181027180607 0.0752887226226219"
+        rpy="0 0 0" />
+      <mass
+        value="0.204532050041072" />
+      <inertia
+        ixx="0.000122411176251671"
+        ixy="-2.99240675693499E-05"
+        ixz="-4.14717404759216E-05"
+        iyy="0.000437752078448314"
+        iyz="-8.06107880676296E-06"
+        izz="0.000404806061347051" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LeftMainRocket.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LeftMainRocket.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <!-- Body_LeftMainRocket set fixed -->
+
+  <joint name="Body_LeftMainRocket"
+    type="revolute">
+    <origin
+      xyz="-0.0699999999999999 0.1425 -0.1755"
+      rpy="-1.5707963267949 0 0"/>
+    <limit
+      effort="10.0"
+      lower="0.0"
+      upper="0.75"
+      velocity="0.5"/>
+    <dynamics damping="1.5" friction="0.05" />
+    <parent
+      link="Body" />
+    <child
+      link="LeftMainRocket" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <link
+    name="BogieLF">
+    <inertial>
+      <origin
+        xyz="0.00804143276030123 -0.0611892834119617 -0.0586508035914892"
+        rpy="0 0 0" />
+      <mass
+        value="0.205767606571893" />
+      <inertia
+        ixx="0.000256972244814912"
+        ixy="1.58700409853914E-05"
+        ixz="8.93014659004606E-06"
+        iyy="0.000139977549946705"
+        iyz="-6.2585293786348E-05"
+        izz="0.00018167635053676" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieLF.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieLF.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+<!-- TODO -->
+  <joint
+    name="LeftMainRocket_BogieLF"
+    type="continuous">
+    <origin
+      xyz="0.317940388880625 0.0733328566220571 0.100149375383798"
+      rpy="1.5698741531303 0.15 0"/>
+    <parent
+      link="LeftMainRocket" />
+    <child
+      link="BogieLF" />
+    <axis
+      xyz="-0.0134730773650667 0 0.999909233973921" />
+  </joint>
+
+  <link
+    name="WheelLF">
+    <inertial>
+      <origin
+        xyz="6.88950247385023E-06 1.18056937399302E-05 -0.0111985077918007"
+        rpy="0 0 0" />
+      <mass
+        value="0.316126387644256" />
+      <inertia
+        ixx="0.00125417443057235"
+        ixy="5.3947413234805E-09"
+        ixz="5.95394574489039E-07"
+        iyy="0.00125453251824733"
+        iyz="-4.89933469620935E-07"
+        izz="0.00230330446172019" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelLF.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelLF.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BogieLF_WheelLF"
+    type="continuous">
+    <origin
+      xyz="0.00335902053663534 -0.0185088553902877 -0.110919982290459"
+      rpy="1.56911004043374 -0.0133675504885453 0.125488738482064" />
+    <parent
+      link="BogieLF" />
+    <child
+      link="WheelLF" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="LeftViceRocket">
+    <inertial>
+      <origin
+        xyz="0.00544336298865633 0.0790000694371694 -0.00147768656868805"
+        rpy="0 0 0" />
+      <mass
+        value="0.214736170582082" />
+      <inertia
+        ixx="0.000148779392960839"
+        ixy="-4.10708272670345E-06"
+        ixz="-3.12011944742713E-06"
+        iyy="0.00021231144824828"
+        iyz="4.97349343197827E-06"
+        izz="0.000249494253401139" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LeftViceRocket.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LeftViceRocket.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="LeftMainRocket_LeftViceRocket"
+    type="revolute">
+    <origin
+      xyz="-0.157067187567568 0.0206738477897414 0.0653920737444332"
+      rpy="1.5707963267949 0 0"/>
+    <limit
+      effort="10.0"
+      lower="0.0"
+      upper="1.1"
+      velocity="0.5"/>
+    <dynamics damping="1.5" friction="0.05" />
+    <parent
+      link="LeftMainRocket" />
+    <child
+      link="LeftViceRocket" />
+    <axis
+      xyz="-0.0770176934401225 -0.996613579592094 0.0288036086245503" />
+  </joint>
+
+  <link
+    name="BogieLM">
+    <inertial>
+      <origin
+        xyz="5.37402303819184E-06 -0.0560189522800473 -0.0653111762015642"
+        rpy="0 0 0" />
+      <mass
+        value="0.205767606800520" />
+      <inertia
+        ixx="0.000259094482450299"
+        ixy="-4.62547727819009E-11"
+        ixz="-8.18227924483526E-09"
+        iyy="0.000138082248225325"
+        iyz="-6.32899887463091E-05"
+        izz="0.000181449406474274" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieLM.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieLM.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+<!-- TODO -->
+  <joint
+    name="LeftViceRocket_BogieLM"
+    type="revolute">
+    <origin
+      xyz="0.164767353715181 0.0961812418597777 -0.0471199736288223"
+      rpy="-0.0272571856821793 -0.036826523655551 0.01885604817339"/>
+    <limit
+      effort="10.0"
+      lower="0.0"
+      upper="0.0"
+      velocity="0"/>
+    <parent
+      link="LeftViceRocket" />
+    <child
+      link="BogieLM" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <link
+    name="WheelLM">
+    <inertial>
+      <origin
+        xyz="0.000168626470619458 0.00642056290895937 -0.00541499586942198"
+        rpy="0 0 0" />
+      <mass
+        value="0.316126450989142" />
+      <inertia
+        ixx="0.00125417523053972"
+        ixy="-1.88246542317072E-08"
+        ixz="6.27089555262768E-07"
+        iyy="0.00125453184287329"
+        iyz="-4.48526090460319E-07"
+        izz="0.00230330455533352" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelLM.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelLM.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BogieLM_WheelLM"
+    type="continuous">
+    <origin
+      xyz="-0.000158813542609305 -0.00721648477053174 -0.123920610705508"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="BogieLM" />
+    <child
+      link="WheelLM" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="BogieLB">
+    <inertial>
+      <origin
+        xyz="5.37703588066041E-06 -0.0560189534713581 -0.0653111809387968"
+        rpy="0 0 0" />
+      <mass
+        value="0.205767615152449" />
+      <inertia
+        ixx="0.000259094495183074"
+        ixy="-4.95435457694142E-11"
+        ixz="-8.18276817632298E-09"
+        iyy="0.000138082264148467"
+        iyz="-6.32899970405678E-05"
+        izz="0.000181449419727836" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieLB.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieLB.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="LeftViceRocket_BogieLB"
+    type="continuous">
+    <origin
+      xyz="-0.151055149231577 0.0763194473595871 -0.056205210310826"
+      rpy="-0.0473940388335563 -0.013586332780937 0"/>
+    <parent
+      link="LeftViceRocket" />
+    <child
+      link="BogieLB" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <link
+    name="WheelLB">
+    <inertial>
+      <origin
+        xyz="1.06353468708464E-05 8.58854249091712E-06 -0.0111985103715875"
+        rpy="0 0 0" />
+      <mass
+        value="0.316126397327035" />
+      <inertia
+        ixx="0.00125422326861605"
+        ixy="1.23120914104013E-07"
+        ixz="3.82298802622209E-07"
+        iyy="0.00125448365520494"
+        iyz="-6.69515383828811E-07"
+        izz="0.00230330441126188" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelLB.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelLB.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BogieLB_WheelLB"
+    type="continuous">
+    <origin
+      xyz="0 -0.013 -0.117512734961949"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="BogieLB" />
+    <child
+      link="WheelLB" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="RightMainRocket">
+    <inertial>
+      <origin
+        xyz="0.173592941206822 -0.107823913021987 -0.0139511601513845"
+        rpy="0 0 0" />
+      <mass
+        value="0.204543388570187" />
+      <inertia
+        ixx="0.000130510723188718"
+        ixy="6.44022193132789E-05"
+        ixz="2.99425868416277E-05"
+        iyy="0.00039686841680031"
+        iyz="-1.05876854295174E-05"
+        izz="0.000437712447131147" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/RightMainRocket.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/RightMainRocket.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Body_RightMainRocket set fixed -->
+
+  <joint name="Body_RightMainRocket"
+    type="revolute">
+    <origin
+      xyz="-0.0699999999999999 -0.1245 -0.1755"
+      rpy="0 0 0"/>
+    <limit
+      effort="10.0"
+      lower="0.0"
+      upper="0.75"
+      velocity="0.5"/>
+    <dynamics damping="1.5" friction="0.05" />
+    <parent
+      link="Body" />
+    <child
+      link="RightMainRocket" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+
+  <link
+    name="BogieRF">
+    <inertial>
+      <origin
+        xyz="-0.00793921680572601 -0.0652010466091468 -0.0555829562456702"
+        rpy="0 0 0" />
+      <mass
+        value="0.205767606463533" />
+      <inertia
+        ixx="0.000256363005896632"
+        ixy="-8.87068089539967E-06"
+        ixz="-1.79652773392481E-05"
+        iyy="0.000181698916814439"
+        iyz="-6.25864465131337E-05"
+        izz="0.000140564221440561" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieRF.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieRF.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+<!-- TODO -->
+  <joint
+    name="RightMainRocket_BogieRF"
+    type="continuous">
+    <origin
+      xyz="0.314781376769367 -0.137851742971743 -0.0677142420079979"
+      rpy="1.5707963267949 0 -0.2"/>
+    <parent
+      link="RightMainRocket" />
+    <child
+      link="BogieRF" />
+    <axis
+      xyz="-0.0130602213166289 0.999906885872567 0.0039560338454614" />
+  </joint>
+
+  <link
+    name="WheelRF">
+    <inertial>
+      <origin
+        xyz="-9.84414052057625E-06 -9.49273863243283E-06 0.0111985080854999"
+        rpy="0 0 0" />
+      <mass
+        value="0.316126162009768" />
+      <inertia
+        ixx="0.0012545101467145"
+        ixy="8.71498505619771E-08"
+        ixz="-6.16261786969268E-07"
+        iyy="0.00125419637419799"
+        iyz="4.63069153090469E-07"
+        izz="0.00230330413064107" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelRF.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelRF.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BogieRF_WheelRF"
+    type="continuous">
+    <origin
+      xyz="-0.000491856060233942 -0.117464586304666 -0.0133059063383693"
+      rpy="0.00400560288486297 0.157466705819477 0.0136888437785063" />
+    <parent
+      link="BogieRF" />
+    <child
+      link="WheelRF" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="RightViceRocket">
+    <inertial>
+      <origin
+        xyz="-0.000649625374816915 -0.0791442304830355 0.000519173432198955"
+        rpy="0 0 0" />
+      <mass
+        value="0.215071305682043" />
+      <inertia
+        ixx="0.000149991923871163"
+        ixy="8.7036232881989E-06"
+        ixz="4.43604835863196E-07"
+        iyy="0.000211282494754151"
+        iyz="-3.91375943069004E-06"
+        izz="0.000249758534363363" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/RightViceRocket.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/RightViceRocket.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="RightMainRocket_RightViceRocket"
+    type="revolute">
+    <origin
+      xyz="-0.15687421108925 -0.0717762495013246 -0.0204937011313071"
+      rpy="0 0 0"/>
+    <limit
+      effort="10.0"
+      lower="0.0"
+      upper="1.1"
+      velocity="0.5"/>
+    <dynamics damping="1.5" friction="0.05" />
+    <parent
+      link="RightMainRocket" />
+    <child
+      link="RightViceRocket" />
+    <axis
+      xyz="0.00208216784465101 0.999997160350242 0.00115925343195808" />
+  </joint>
+
+
+  <link
+    name="BogieRM">
+    <inertial>
+      <origin
+        xyz="-0.00254381123247099 -0.0655477820284973 -0.0556838396584481"
+        rpy="0 0 0" />
+      <mass
+        value="0.205767606713631" />
+      <inertia
+        ixx="0.000258860794390188"
+        ixy="-2.89054926109131E-06"
+        ixz="-5.2985514838821E-06"
+        iyy="0.000180912630114809"
+        iyz="-6.34057008182268E-05"
+        izz="0.000138852719755529" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieRM.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieRM.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+<!-- TODO -->
+  <joint
+    name="RightViceRocket_BogieRM"
+    type="revolute">
+    <origin
+      xyz="0.154814597852532 -0.110237581333329 -0.0509046109403079"
+      rpy="1.5707963267949 0 -0.1"/>
+    <limit
+      effort="10.0"
+      lower="0.0"
+      upper="0.0"
+      velocity="0"/>
+    <parent
+      link="RightViceRocket" />
+    <child
+      link="BogieRM" />
+    <axis
+      xyz="0.00215438968609037 0.999988288606444 -0.00433373453674357" />
+  </joint>
+
+
+  <link
+    name="WheelRM">
+    <inertial>
+      <origin
+        xyz="1.08363929594429E-05 -8.34378525549351E-06 0.011198512715546"
+        rpy="0 0 0" />
+      <mass
+        value="0.316126446134690" />
+      <inertia
+        ixx="0.00125422891553819"
+        ixy="-1.29032338785625E-07"
+        ixz="-3.66884037642606E-07"
+        iyy="0.00125447812893718"
+        iyz="-6.78052588997175E-07"
+        izz="0.00230330453617125" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelRM.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelRM.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BogieRM_WheelRM"
+    type="continuous">
+    <origin
+      xyz="-0.000811576498516105 -0.117541015853836 -0.0124787235842065"
+      rpy="-0.00433772158019857 0.0428056756749975 -0.00234003515037056" />
+    <parent
+      link="BogieRM" />
+    <child
+      link="WheelRM" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="BogieRB">
+    <inertial>
+      <origin
+        xyz="-5.37457610622072E-06 0.0560189527942552 -0.0653111754214336"
+        rpy="0 0 0" />
+      <mass
+        value="0.205767609341906" />
+      <inertia
+        ixx="0.000259094504531302"
+        ixy="-4.49986721536423E-11"
+        ixz="8.17889217592575E-09"
+        iyy="0.000138082263428924"
+        iyz="6.32899962572769E-05"
+        izz="0.000181449410527801" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieRB.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/BogieRB.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="RightViceRocket_BogieRB"
+    type="continuous">
+    <origin
+      xyz="-0.158568438529552 -0.0659754875808168 -0.04849232041407"
+      rpy="-0.000328747061730482 0.00670453540038298 -0.0319410090837695"/>
+    <parent
+      link="RightViceRocket" />
+    <child
+      link="BogieRB" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <link
+    name="WheelRB">
+    <inertial>
+      <origin
+        xyz="1.36352941229601E-05 -1.04281299911912E-06 0.0111985112634395"
+        rpy="0 0 0" />
+      <mass
+        value="0.316126437825385" />
+      <inertia
+        ixx="0.00125442203438295"
+        ixy="-1.65731693854743E-07"
+        ixz="6.47191306983644E-08"
+        iyy="0.00125428501679126"
+        iyz="-7.68239104413621E-07"
+        izz="0.00230330453744826" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelRB.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/WheelRB.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="BogieRB_WheelRB"
+    type="continuous">
+    <origin
+      xyz="0 0.013 -0.117490499669085"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="BogieRB" />
+    <child
+      link="WheelRB" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="LiDAR-T">
+    <inertial>
+      <origin
+        xyz="-0.00151544666529047 -5.02536333416015E-06 -0.0217988845472945"
+        rpy="0 0 0" />
+      <mass
+        value="0.142596315852963" />
+      <inertia
+        ixx="5.50218596220668E-05"
+        ixy="-5.86150114233959E-09"
+        ixz="1.63772296360502E-06"
+        iyy="6.02688918247369E-05"
+        iyz="-5.01052917388386E-10"
+        izz="9.58207395040967E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LiDAR-T.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LiDAR-T.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Body_LiDAR-T"
+    type="fixed">
+    <origin
+      xyz="0.166002901251967 0 0.0224991"
+      rpy="0 0 6.44722758645551E-05" />
+    <parent
+      link="Body" />
+    <child
+      link="LiDAR-T" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="LiDAR-B">
+    <inertial>
+      <origin
+        xyz="-0.00151536347620954 -4.974331523383E-06 -0.0217988646308383"
+        rpy="0 0 0" />
+      <mass
+        value="0.142596263009916" />
+      <inertia
+        ixx="5.50213119081118E-05"
+        ixy="-6.11159855377245E-09"
+        ixz="1.63767383617258E-06"
+        iyy="6.02690738036201E-05"
+        iyz="-5.91996217373551E-10"
+        izz="9.58204364158845E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LiDAR-B.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/LiDAR-B.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Body_LiDAR-B"
+    type="fixed">
+    <origin
+      xyz="0.103499250098576 0 -0.25694368742201"
+      rpy="3.14159265358979 0 -4.1660029658464E-05" />
+    <parent
+      link="Body" />
+    <child
+      link="LiDAR-B" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="IMU">
+    <inertial>
+      <origin
+        xyz="-0.000148471460861305 0.000610841399298873 -0.0246533179433649"
+        rpy="0 0 0" />
+      <mass
+        value="0.128026265488532" />
+      <inertia
+        ixx="1.74782365788774E-05"
+        ixy="3.63597105711922E-10"
+        ixz="5.09499222161647E-08"
+        iyy="3.53184163797977E-05"
+        iyz="3.79443140535219E-08"
+        izz="3.14464670678593E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/IMU.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/IMU.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Body_IMU"
+    type="fixed">
+    <origin
+      xyz="-0.169999999999998 0.037 -0.1465"
+      rpy="0 0 0" />
+    <parent
+      link="Body" />
+    <child
+      link="IMU" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="ZED">
+    <inertial>
+      <origin
+        xyz="0.000181069155665695 8.98346519062621E-07 -0.0192686585656151"
+        rpy="0 0 0" />
+      <mass
+        value="0.139975853804748" />
+      <inertia
+        ixx="0.000390616590119435"
+        ixy="-1.38579679045845E-09"
+        ixz="6.4523845605747E-08"
+        iyy="3.25742320239968E-05"
+        iyz="3.28189874843335E-09"
+        izz="0.000382942921563388" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/ZED.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tianrover_gazebo/meshes/ZED.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Body_ZED"
+    type="fixed">
+    <origin
+      xyz="0.212798000000022 0 -0.043874759479115"
+      rpy="0 1.5707963267949 0" />
+    <parent
+      link="Body" />
+    <child
+      link="ZED" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+</robot>

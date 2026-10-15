@@ -30,3 +30,10 @@ Upstream: https://github.com/Adlink-ROS/slam_gmapping
 pointcloud_to_laserscan is imported from its official Humble branch at
 59bf996fb3ee7db0026a5cd3ce0d2a39d2e602ea (BSD). The local patch adds an optional
 reliable_cloud input QoS parameter; upstream default remains false.
+
+The tianrover_gazebo Mini model, terrain and C++ plugins were migrated from
+/home/tianbot/tianbot_ws/src/tianrover_gazebo on 2026-10-15. Mesh files are
+copied unchanged. The original C++ copyright and license notices are retained.
+ROS 2 modifications replace catkin/roscpp/tf, migrate launch and joint-state
+configuration, bound path history, correct odometry twist frames and add a
+command watchdog. The original ROS 1 checkout is not modified.
