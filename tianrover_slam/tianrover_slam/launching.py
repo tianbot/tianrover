@@ -36,7 +36,8 @@ def setup(context, mode):
                          arguments=['--map-name', str(filename)])]
         return [Node(package='nav2_map_server', executable='map_saver_cli',
                      name='map_saver', namespace=ns, output='screen',
-                     parameters=[{'use_sim_time': sim, 'save_map_timeout': 10.0}],
+                     parameters=[{'use_sim_time': sim, 'save_map_timeout': 10.0,
+                                  'free_thresh_default': cfg.number('MAP_FREE_THRESH', 0.196)}],
                      arguments=['-t', cfg.topic('map'), '-f', str(filename)])]
     raise ValueError('Unsupported mode: ' + mode)
 

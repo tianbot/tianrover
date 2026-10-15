@@ -54,6 +54,9 @@ ros2 launch tianrover_slam map_save.launch.py slam_methods:=cartographer \
 ```
 
 旧 `map_name:=$HOME/maps/name` 完整前缀写法仍可用。Cartographer 拒绝覆盖已有输出。
+Gmapping 和 SLAM Toolbox 的栅格保存默认使用空闲阈值 `0.196`；可在启动保存命令前
+通过 `export TIANROVER_MAP_FREE_THRESH=0.196` 调整（取值应在 0 与占用阈值之间）。
+该配置控制保存时的空闲像素分类，不改变在线建图参数，也不影响 Cartographer 的保存流程。
 Cartographer 保存 include_unfinished_submaps=true，不结束活动轨迹；保存过程中保持停车。
 若栅格保存失败但 pbstream 已保存，错误会提示；换新文件名重试，不把部分输出当作完成。
 
