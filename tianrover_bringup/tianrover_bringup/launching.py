@@ -50,8 +50,10 @@ def setup(context, mode):
                                    filtered_topic=cfg.topic('odom')))
         return actions
     if mode == 'scan':
-        low = cfg.number('SCAN_MIN_HEIGHT', -0.1)
-        high = cfg.number('SCAN_MAX_HEIGHT', 0.1)
+        # RSHELIOS_16P's nearest horizontal beams are about +/-1 degree.
+        # A +/-0.10m band cuts them off near 5.7m; +/-0.35m covers 20m.
+        low = cfg.number('SCAN_MIN_HEIGHT', -0.35)
+        high = cfg.number('SCAN_MAX_HEIGHT', 0.35)
         if low >= high:
             raise ValueError('SCAN_MIN_HEIGHT must be below SCAN_MAX_HEIGHT')
         return [Node(package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',

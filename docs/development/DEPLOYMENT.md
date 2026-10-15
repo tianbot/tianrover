@@ -101,7 +101,7 @@ ros2 launch tianrover_rviz rviz.launch.py
 NX 当前 ZED SDK 的图像有效性检查会阻塞采集（调用栈停在 `CorruptedFrameDetectorImpl::waitForResults`）；配置暂设 `general.enable_image_validity_check: 0`，因此不提供 SDK 坏帧检测。关闭后已收到 RGB、深度和 IMU 数据；升级 SDK 后再评估恢复。
 相机话题前缀为 `/mars/zed2i`；其光学 TF 由官方相机 URDF 提供，通过 `mars/zed_camera_link -> zed2i_camera_link` 静态变换接入车辆 TF，默认复用现有 URDF 安装位姿，连接偏移为零，尚未做实物标定。可用 `TIANROVER_ZED_MOUNT_X/Y/Z/ROLL/PITCH/YAW` 配置相对安装帧的偏移（米/弧度）。RViz 使用 `mars/map`、`mars/odom` 或 `mars/base_link` 时可显示相机彩色点云。
 也可单独启动同名入口，避免重复驱动。
-雷达的三维点云先转换为二维 scan；高度带默认是 laser frame 中的 [-0.10, 0.10]m。
+雷达的三维点云先转换为二维 scan；高度带默认是 laser frame 中的 [-0.35, 0.35]m。
 这属于二维建图的输入适配，三维建图见 [三维链路](../guides/THREED.md)。
 
 保存地图，然后停止 SLAM，再启动 AMCL 导航（两者不能同时发布 map -> odom）：
@@ -201,6 +201,11 @@ MSOP/DIFOP 接收端口也可通过环境配置。雷达设备自身的目标 IP
 速度默认 0.20 m/s、角速度 0.40 rad/s，默认外接圆半径 0.65m；
 这是初始配置，必须按实际车体包络和现场刹车能力验收，不能当作已经标定。
 `TIANROVER_SCAN_MIN_HEIGHT/MAX_HEIGHT` 设置过滤带，`TIANROVER_POINTS_TOPIC` 可接入已有点云。
+RSHELIOS_16P 的近水平束线约为 ±1°。默认高度带使用雷达坐标系内 ±0.35m，
+与二维扫描及 SLAM Toolbox 的 20m 上限匹配；原 ±0.10m 高度带会在约 5.7m 处截断这些束线。
+范围链为驱动 `max_distance=30m` → 投影 `TIANROVER_SCAN_RANGE=20m` →
+SLAM `max_laser_range=20m`，后一级不能恢复前一级已经过滤掉的点。
+更换雷达、安装高度或场地后需重新检查高度带，不能单独增大 SLAM 范围。
 实车所有入口默认 `use_sim_time=false`；仿真可显式传 `use_sim_time:=true`。
 
 ## 验证与回退

@@ -20,9 +20,11 @@ export TIANROVER_USE_EKF=false
 export TIANROVER_MAX_SPEED=0.20
 export TIANROVER_MAX_YAW_RATE=0.40
 export TIANROVER_ROBOT_RADIUS=0.65
-export TIANROVER_SCAN_MIN_HEIGHT=-0.10
-export TIANROVER_SCAN_MAX_HEIGHT=0.10
+export TIANROVER_SCAN_MIN_HEIGHT=-0.35
+export TIANROVER_SCAN_MAX_HEIGHT=0.35
+export TIANROVER_SCAN_RANGE=20.0
 # Height band is relative to the laser frame, whose measured URDF height is 0.677m.
+# RSHELIOS_16P beams near +/-1 degree need +/-0.35m to reach 20m.
 # export TIANROVER_MAP=$HOME/.local/share/tianrover/maps/mars/map.yaml
 # External adapter directory may contain base/, lidar/, description/ launch files.
 # export TIANROVER_COMPONENT_DIR=$HOME/.config/tianrover/components
