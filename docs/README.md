@@ -8,6 +8,8 @@
 
 | 文档 | 内容 |
 | --- | --- |
+| [键盘遥控](../README.md#键盘遥控) | 全向键位、命名空间、速度和停车 |
+| [Gazebo 仿真](../tianrover_gazebo/README.md) | Mini 车型、障碍场地、ROS 2 控制接口 |
 | [二维建图](guides/SLAM_2D.md) | Gmapping、Cartographer、保存地图和定位 |
 | [车辆模型](guides/MODEL.md) | 模型显示、关节反馈接入及模型修正依据 |
 | [里程计融合](guides/EKF.md) | 轮式里程计与 IMU 融合、切换与回退 |

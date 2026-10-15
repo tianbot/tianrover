@@ -17,9 +17,13 @@
 | `tianrover_navigation` | Nav2 配置及定位导航组合入口 |
 | `tianrover_calibration` | 六轮标定、录包、参数应用及回退工具 |
 | `tianrover_rviz` | 二维/三维 RViz 入口和显示配置 |
+| `tianrover_teleop` | 全向键盘遥控，发布标准 Twist |
+| `tianrover_gazebo` | 开发电脑单独构建的 Mini 模型、障碍场地和 Gazebo Classic 插件，不作为实车元包依赖 |
 | `tianrover_tests` | 独立 ROS 域内的集成测试，不由产品元包依赖 |
 
 `tianrover` 使用 `ament_cmake` 构建并通过 `exec_depend` 聚合功能包。不会调用 ROS 1 的 `catkin_metapackage()`。
+ROS 1 侧仍以 `tianrover_gazebo` 单包维护仿真资源和插件，不增加 `tianrover` 元包；上表的功能包划分仅适用于 ROS 2。
+键盘遥控随产品元包构建；仿真使用 `--packages-up-to tianrover_gazebo` 单独构建，避免要求实车安装 Gazebo。
 各功能包内的同名目录是 Python 模块目录，例如 `tianrover_localization/tianrover_localization/`；`scripts/` 是供 `ros2 run` 调用的短入口。
 
 RTAB-Map 建图和地图定位共用 `tianrover_slam` 中的后端实现；`tianrover_localization` 提供定位启动入口。依赖方向为 localization → slam，不形成循环。

@@ -81,6 +81,44 @@ ros2 launch tianrover_rviz rviz.launch.py fixed_frame:=mars/base_footprint
 
 已运行 `bringup` 时，直接打开 RViz 即可，无需再运行 `description`。
 
+## 键盘遥控
+
+设备启动后，在另一个交互终端中运行（已部署车辆会自动加载环境）：
+
+```bash
+ros2 run tianrover_teleop teleop_key
+```
+
+默认沿用 `TIANBOT_NAME`，例如 `mars` 对应 `/mars/cmd_vel`。
+键盘直接发布到底盘速度话题，使用前先取消导航并退出导航程序，避免与导航同时控制底盘。
+也可显式指定：
+
+```bash
+ros2 run tianrover_teleop teleop_key --ros-args -r __ns:=/mars -p speed:=0.2 -p turn:=0.4
+```
+
+`u/i/o` 为前左/前/前右，`j/l` 为左右平移，`m/,/.` 为后左/后/后右，
+`a/d` 为原地左/右转，`q/e` 为前进并左/右转，`z/c` 为后退并左/右转；
+弧线键同时发布 `linear.x` 和 `angular.z`，`linear.y=0`。左转表示正角速度，
+右转表示负角速度。`k` 或空格停车，`Ctrl+C` 退出。
+全向按键无需 Shift；斜向速度按总线速度归一化。
+默认线速度 0.2 m/s、角速度 0.4 rad/s；`t/b`、`w/x`、`r/v`
+分别增减全部速度、线速度、角速度，上限分别为 0.5 m/s、1.0 rad/s。
+无新方向键 0.5 秒后发布停车，持续行驶需按住方向键。
+可通过 ROS 参数 `speed`、`turn`、`speed_limit`、`turn_limit`、
+`key_timeout`、`repeat_rate` 调整。底盘是否执行横移取决于其运动模式和硬件能力。
+
+## Gazebo 仿真
+
+```bash
+ROS_DOMAIN_ID=88 ROS_LOCALHOST_ONLY=1 ros2 launch tianrover_gazebo gazebo.launch.py namespace:=sim_mars
+```
+
+提供从 ROS 1 移植的 Mini 六轮车型与障碍场地，使用 ROS 2 Humble / Gazebo Classic 11。
+仿真在开发电脑运行，使用独立 ROS 域和 `sim_mars` 命名空间；配套遥控终端使用相同设置。
+当前提供底盘运动、里程计和关节反馈，不包含雷达/相机及完整建图导航链路。
+启动参数、仿真控制接口及模型运动边界见[仿真说明](tianrover_gazebo/README.md)。
+
 ## 3. 二维建图
 
 保持终端 1 的设备程序运行。打开终端 2 启动建图：
