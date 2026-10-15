@@ -5,17 +5,35 @@
 
 日常使用按下方步骤操作。首次安装、驱动适配和源码构建见[部署说明](docs/development/DEPLOYMENT.md)；更多功能见[文档目录](docs/README.md)。
 
-## 1. 加载运行环境
+## 1. 打开终端并检查环境
 
-在火星车上打开终端。**每个新终端都先执行：**
+已部署火星车的新 Bash 终端会通过 `~/.bashrc` 自动加载 ROS 2 Humble 和
+`~/tianrover_ws/install/setup.bash`，后者会串联加载底盘驱动工作区。
+**日常打开终端后即可执行本说明中的命令，无需再次手动 source。**
+
+这里 `~/tianbot_ws` 是驱动工作区，`~/tianrover_ws` 是车辆功能工作区。
+其他电脑或重新部署的车辆需按实际安装位置配置环境。需要检查自动加载是否正常时，执行：
+
+```bash
+echo "$ROS_DISTRO"
+ros2 pkg prefix tianrover_bringup
+```
+
+应分别显示 `humble` 和车辆工作区中的功能包路径。
+
+<details>
+<summary>环境未自动加载或在非交互脚本中运行时</summary>
+
+仅在这些情况下显式加载环境，再执行对应命令：
 
 ```bash
 source /opt/ros/humble/setup.bash
-source ~/tianbot_ws/install/setup.bash
 source ~/tianrover_ws/install/setup.bash
 ```
 
-这里 `~/tianbot_ws` 是驱动工作区，`~/tianrover_ws` 是车辆功能工作区。若交付时使用其他路径，请替换为实际安装位置。
+这不是日常每开一个终端都要重复的步骤。安装位置不同的电脑需替换实际工作区路径。
+
+</details>
 
 首次使用时检查机器人配置：
 
@@ -31,7 +49,7 @@ cp "$(ros2 pkg prefix --share tianrover_bringup)/config/my_tianrover.sh.example"
   ~/.config/tianrover/my_tianrover.sh
 ```
 
-按车辆配置修改该文件，然后重新执行上面的环境加载命令。无需修改源码或重新编译。
+按车辆配置修改该文件后，重新打开终端，再启动对应程序。无需修改源码或重新编译。
 本文使用示例中的 `TIANBOT_NAME=mars`；如果名称不同，检查话题和坐标系时也要替换 `mars`。
 
 ## 2. 启动设备
@@ -65,7 +83,7 @@ ros2 launch tianrover_rviz rviz.launch.py fixed_frame:=mars/base_footprint
 
 ## 3. 二维建图
 
-保持终端 1 的设备程序运行。在加载环境后，终端 2 启动建图：
+保持终端 1 的设备程序运行。打开终端 2 启动建图：
 
 ```bash
 ros2 launch tianrover_slam slam.launch.py
@@ -84,7 +102,7 @@ ros2 launch tianrover_rviz rviz.launch.py
 
 ## 4. 保存地图
 
-车辆停车后，保持设备和建图程序运行。在新终端加载环境，执行：
+车辆停车后，保持设备和建图程序运行。在新终端执行：
 
 ```bash
 ros2 launch tianrover_slam map_save.launch.py slam_methods:=slam_toolbox \
@@ -123,7 +141,7 @@ ros2 launch tianrover_navigation navigation.launch.py map:=$HOME/maps/site_01.ya
 建图和导航要分开运行。示例配置的导航速度上限为 `0.20 m/s`、角速度上限为 `0.40 rad/s`；实际运行以车辆配置文件为准。
 首次在新场地使用时，请在留有停车空间的区域测试定位与到点行为。
 
-日后直接使用已有地图，可以跳过建图和保存步骤：加载环境、启动设备、打开 RViz，再启动导航并设置初始位姿。
+日后直接使用已有地图，可以跳过建图和保存步骤：打开终端、启动设备、打开 RViz，再启动导航并设置初始位姿。
 
 ## 6. 停止使用
 
@@ -132,7 +150,7 @@ ros2 launch tianrover_navigation navigation.launch.py map:=$HOME/maps/site_01.ya
 
 ## 常用配置
 
-配置文件为 `~/.config/tianrover/my_tianrover.sh`。修改后，在新终端加载环境并重新启动对应程序。
+配置文件为 `~/.config/tianrover/my_tianrover.sh`。修改后，重新打开终端并启动对应程序。
 
 | 配置项 | 用途 | 示例值 |
 | --- | --- | --- |
@@ -158,18 +176,18 @@ export TIANROVER_MAP=$HOME/maps/site_01.yaml
 `-0.10` / `0.10`，需按本车雷达安装情况调整；Helios 16 近水平束线在该高度带内
 约到 5.7 m 就会被过滤。当前默认 ±0.35 m 用于覆盖约 20 m 的束线高度偏移，
 不代表已完成 20 m 实测验收。详见[部署说明](docs/development/DEPLOYMENT.md)。
-修改后在启动程序的终端重新加载工作区环境，再重启对应程序；仅修改文件不会更新已运行节点。
+修改后先退出对应程序，再从新终端启动；仅修改文件不会更新已有终端或已运行节点。
 
 ## 常见问题
 
 | 现象 | 检查方法 |
 | --- | --- |
-| 提示找不到 `tianrover` | 在当前终端重新加载三层环境，执行 `ros2 pkg prefix tianrover_bringup` 检查安装路径。 |
+| 提示找不到 `tianrover` | 执行 `echo "$ROS_DISTRO"` 和 `ros2 pkg prefix tianrover_bringup`；若自动加载失效，按上面的排错说明手动加载环境。 |
 | 提示地图不存在 | 检查 `map:=` 指定的 YAML 路径，以及与它配套的地图图像是否存在。 |
 | RViz 有模型但没有地图 | 确认建图或导航程序正在运行；建图和导航时 Fixed Frame 应为 `mars/map`。 |
 | 尚未建图，只想查看设备 | 使用 `ros2 launch tianrover_rviz rviz.launch.py fixed_frame:=mars/odom`。 |
 | 模型在其他电脑显示不完整 | RViz 所在电脑也需要安装本功能包和包含模型网格的 `tianrover_description`。 |
-| 没有扫描或里程计 | 在加载环境后分别执行 `ros2 topic hz /mars/scan`、`ros2 topic hz /mars/odom`；检查设备终端的报错。 |
+| 没有扫描或里程计 | 在新终端分别执行 `ros2 topic hz /mars/scan`、`ros2 topic hz /mars/odom`；检查设备终端的报错。 |
 | 相机启动失败 | 检查相机连接和驱动；仅使用二维雷达建图时，可用 `use_zed:=false` 启动设备。 |
 | 导航时扫描与地图不对齐 | 重新设置初始位置和朝向；仍不对齐时，停车并记录定位程序日志。 |
 

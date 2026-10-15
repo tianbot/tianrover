@@ -54,7 +54,7 @@ RTAB-Map 相关 Humble 包已经安装，真实 SDK 已切换为 XYZIRT。
 
 以下入口已在隔离域用合成数据验证。现场当前仍保留原底盘 wheel TF，
 独立 KISS 以不发布 TF 的 shadow 模式运行；尚未切换为下述完整三维 bringup。
-每个终端先 source 三层环境；命令依次执行，建图与定位不能同时启动：
+已部署火星车的新 Bash 终端会自动加载环境，无需重复 source；命令依次执行，建图与定位不能同时启动：
 
 ```bash
 source /opt/ros/humble/setup.bash

@@ -6,14 +6,8 @@ ROS2-only，部署目标为 NX Ubuntu 22.04 / ROS 2 Humble / ARM64。
 
 ## 使用
 
-每个终端：
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/tianbot_ws/install/setup.bash
-source ~/tianrover_ws/install/setup.bash
-export TIANBOT_NAME=mars
-```
+已部署火星车的新 Bash 终端会自动加载 ROS 和车辆工作区，无需重复 source。
+本指南以车辆配置中的 `TIANBOT_NAME=mars` 为例；环境说明及自动加载排错见[README](../../README.md)。
 
 停止之前的建图/定位节点再选择一种算法，同一车不能同时由多个节点发布 map→odom。
 已有 bringup 时不重复开启底盘/雷达；独立开启二维硬件入口使用：

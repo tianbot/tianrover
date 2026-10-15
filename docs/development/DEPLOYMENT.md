@@ -81,11 +81,8 @@ TF transport 保持共享 `/tf`、`/tf_static`，frame 使用 `mars_a/map`、`ma
 
 ## 固定入口
 
-每个新终端都执行：
-
-```bash
-source ~/tianrover_ws/install/setup.bash
-```
+已部署火星车通过 `~/.bashrc` 自动加载 ROS 与车辆工作区，新交互终端无需重复 source。
+首次部署、构建后刷新当前终端或非交互脚本仍需显式加载环境；日常检查与排错见[README](../../README.md)。
 
 分别启动：
 

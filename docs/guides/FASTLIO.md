@@ -70,14 +70,9 @@ max_imu_gap: 0.1
 
 ## 最少实车步骤
 
-先在原终端正常 Ctrl+C 停止旧KISS/RTAB/bringup，等退出；不要与以下入口混开。新建数据库名，不复用那份只有一个Node的旧文件。每个终端先执行：
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/tianbot_ws/install/setup.bash
-source ~/tianrover_ws/install/setup.bash
-export TIANBOT_NAME=mars
-```
+先在原终端正常 Ctrl+C 停止旧KISS/RTAB/bringup，等退出；不要与以下入口混开。新建数据库名，不复用那份只有一个Node的旧文件。
+已部署火星车的新 Bash 终端会自动加载运行环境及车辆配置，无需重复 source。
+以下使用配置中的 `TIANBOT_NAME=mars`；自动加载说明及排错见[README](../../README.md)。
 
 终端1（静止启动，等待IMU初始化；底层控制方式不变）：
 
@@ -193,14 +188,7 @@ ros2 run tianrover_slam map_save_3d --offline \
 
 2026-10-09 用户完成实车建图、正常退出及离线保存。NX只读核查：fastlio_test_01.db与fastlio_test_01_saved.db均为221163520字节，SQLite quick_check=ok，Node=63、Link=124、Data=63，扫描数据21599091字节。保存链路本次成功；导航运动尚未验收。Mem/SaveDepth16Format=false与RVL不兼容时自动使用PNG压缩，此警告不代表数据库保存失败。
 
-每个终端先显式加载环境：
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/tianbot_ws/install/setup.bash
-source ~/tianrover_ws/install/setup.bash
-export TIANBOT_NAME=mars
-```
+已部署火星车的新 Bash 终端会自动加载环境和车辆配置，以下以 `TIANBOT_NAME=mars` 为例。
 
 保留正在运行的FAST-LIO bringup；如果已停止，在终端1启动（不要重复启动）：
 
@@ -253,14 +241,8 @@ H16→FAST-LIO2支持imu_source:=zed或chassis；use_zed独立控制相机驱动
 
 NX静止数据评估：283条底盘IMU，约47.96Hz，间隔17.0～260.2ms，没有倒退/重复；加速度模长均值9.8064m/s²，静止角速度接近零。TF base_link→imu_link与imu_link→laser均存在，采用CAD挂载值而非实测标定值。底盘ROS2驱动直接转发固件加速度/角速度，并在串口包接收时用host clock now打时间戳；没有硬件采样时刻。加速度尺度与SI重力一致；静止数据不能证明陀螺单位/转动轴符号，需运动录包确认。50Hz及串口抖动对动态去畸变不如已观测约200Hz的ZED方案，当前仅支持低速实验，未证明交付质量。100ms IMU gap检查保留，260ms缺口覆盖的扫描会被拒绝。上游支持外部IMU但要求激光/IMU时间对齐：https://github.com/Ericsii/FAST_LIO_ROS2/blob/2fffc570a25d0df172720bac034fbdb6a13d2162/README.md
 
-先正常退出旧bringup、单独base/description、RTAB后端和RViz，避免重复驱动/TF/前端。每个终端显式source：
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/tianbot_ws/install/setup.bash
-source ~/tianrover_ws/install/setup.bash
-export TIANBOT_NAME=mars
-```
+先正常退出旧bringup、单独base/description、RTAB后端和RViz，避免重复驱动/TF/前端。
+已部署火星车打开新 Bash 终端即可执行以下命令，环境和车辆配置会自动加载。
 
 终端1：
 ```bash
