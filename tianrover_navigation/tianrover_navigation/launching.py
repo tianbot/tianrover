@@ -42,7 +42,6 @@ def setup(context, mode):
         if map_file is not None:
             params['map_server']['ros__parameters']['yaml_filename'] = str(map_file)
         params['map_server']['ros__parameters']['frame_id'] = cfg.frame('map')
-        path, cleanup = generated_yaml({ns: params} if ns else params)
         # Keep /tf and /tf_static shared; isolate frames, not TF transport topics.
         # Namespaced costmap child nodes are matched by the nested parameter tree.
         executables = {
@@ -65,7 +64,7 @@ def setup(context, mode):
                 costmap.pop('robot_radius', None)
                 # CAD neutral envelope plus commissioning margin. Steering/suspension
                 # swept-volume and stopping-distance verification remain required.
-                costmap['footprint'] = '[[-0.75,-0.49],[-0.75,0.49],[0.75,0.49],[0.75,-0.49]]'
+                costmap['footprint'] = costmap.get('footprint', '[[-0.75,-0.49],[-0.75,0.49],[0.75,0.49],[0.75,-0.49]]')
                 layer = costmap['voxel_layer' if key == 'local_costmap' else 'obstacle_layer']
                 layer.pop('scan', None)
                 layer['observation_sources'] = 'cloud'
@@ -77,6 +76,7 @@ def setup(context, mode):
                                   'raytrace_max_range': 10.0}
                 if key == 'local_costmap':
                     layer.update(z_resolution=0.1, z_voxels=16, max_obstacle_height=1.5)
+        path, cleanup = generated_yaml({ns: params} if ns else params)
         actions = [cleanup]
         for name, (package, executable) in executables.items():
             remaps = []
