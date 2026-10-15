@@ -242,14 +242,39 @@ export TIANROVER_MAP=$HOME/maps/site_01.yaml
 
 | 现象 | 检查方法 |
 | --- | --- |
-| 提示找不到 `tianrover` | 执行 `echo "$ROS_DISTRO"` 和 `ros2 pkg prefix tianrover_bringup`；若自动加载失效，按上面的排错说明手动加载环境。 |
+| 提示找不到 `tianrover` | 按[检查运行环境](#检查运行环境)确认 ROS 版本和功能包路径；若自动加载失效，按上面的排错说明手动加载环境。 |
 | 提示地图不存在 | 检查 `map:=` 指定的 YAML 路径，以及与它配套的地图图像是否存在。 |
 | RViz 有模型但没有地图 | 确认建图或导航程序正在运行；建图和导航时 Fixed Frame 应为 `mars/map`。 |
-| 尚未建图，只想查看设备 | 使用 `ros2 launch tianrover_rviz rviz.launch.py fixed_frame:=mars/odom`。 |
+| 尚未建图，只想查看设备 | 按[查看设备](#查看设备)启动 RViz。 |
 | 模型在其他电脑显示不完整 | RViz 所在电脑也需要安装本功能包和包含模型网格的 `tianrover_description`。 |
-| 没有扫描或里程计 | 在新终端分别执行 `ros2 topic hz /mars/scan`、`ros2 topic hz /mars/odom`；检查设备终端的报错。 |
+| 没有扫描或里程计 | 按[检查扫描和里程计](#检查扫描和里程计)查看更新频率；检查设备终端的报错。 |
 | 相机启动失败 | 检查相机连接和驱动；仅使用二维雷达建图时，可用 `use_zed:=false` 启动设备。 |
 | 导航时扫描与地图不对齐 | 重新设置初始位置和朝向；仍不对齐时，停车并记录定位程序日志。 |
+
+### 检查运行环境
+
+```bash
+echo "$ROS_DISTRO"
+ros2 pkg prefix tianrover_bringup
+```
+
+### 查看设备
+
+```bash
+ros2 launch tianrover_rviz rviz.launch.py fixed_frame:=mars/odom
+```
+
+### 检查扫描和里程计
+
+在两个终端中分别执行以下命令；观察后按 `Ctrl+C` 退出。
+
+```bash
+ros2 topic hz /mars/scan
+```
+
+```bash
+ros2 topic hz /mars/odom
+```
 
 ## 其他功能
 
