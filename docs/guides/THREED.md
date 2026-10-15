@@ -73,6 +73,11 @@ ros2 launch tianrover_navigation localize_and_navigate_3d.launch.py database:=$H
 
 导航复用 Nav2 Dijkstra 全局规划和 DWB 局部控制；三维入口由 RTAB-Map 提供地图及定位，
 不再启动 AMCL/map_server。当前 footprint 使用 CAD 包络加余量，仍需实测运动包络与制动距离。
+通过 `TIANROVER_NAV_PARAMS` 指定外部 Nav2 YAML 时，三维导航保留其中的自定义 `footprint`；
+未配置时使用默认矩形 `[[-0.75,-0.49],[-0.75,0.49],[0.75,0.49],[0.75,-0.49]]`（单位 m）。
+三维避障默认使用 FAST-LIO2 的 `/mars/lidar/cloud_deskewed` 或 KISS 的 `/mars/kiss/frame`，
+可用 `TIANROVER_NAV_POINTS_TOPIC` 指定其他有效点云。话题前缀随机器人名称变化；
+配置修复不等于实车避障或停车验收通过。
 已验证实际 KISS 节点、完整 bringup、RTAB-Map 回环/保存/重新加载，以及组合定位导航入口
 的 Nav2 路径规划，输入均为隔离域合成数据。尚未发送导航目标或验证 DWB 控车。
 具体范围及日志见 [验证记录](../development/VALIDATION_3D.md)。

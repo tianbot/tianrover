@@ -1,6 +1,6 @@
-# MarsRover 火星车使用说明
+# TianRover 火星车使用说明
 
-本仓库提供 MarsRover 的 ROS 2 设备启动、模型显示、建图和导航功能，各功能由 `tianrover_bringup`、`tianrover_description`、`tianrover_slam` 等 ROS 2 功能包提供。
+本仓库提供 TianRover 火星车的 ROS 2 设备启动、模型显示、建图和导航功能，各功能由 `tianrover_bringup`、`tianrover_description`、`tianrover_slam` 等 ROS 2 功能包提供。
 当前部署环境为 **Ubuntu 22.04 / ROS 2 Humble / Jetson NX**，以下命令适用于已安装驱动和本功能包的车辆。
 
 日常使用按下方步骤操作。首次安装、驱动适配和源码构建见[部署说明](docs/development/DEPLOYMENT.md)；更多功能见[文档目录](docs/README.md)。
@@ -100,6 +100,10 @@ ls -lh ~/maps/site_01.yaml ~/maps/site_01.pgm
 地图由描述文件 `.yaml` 和图像文件 `.pgm` 配套组成，复制地图时请一并复制。
 保存其他场地时，修改 `site_01` 为新的名称。
 
+SLAM Toolbox 和 Gmapping 保存栅格地图时，空闲阈值默认为 `0.196`，可用
+`TIANROVER_MAP_FREE_THRESH` 调整；它只影响保存时的像素分类，不改变在线建图。
+Cartographer 使用独立保存流程，详见[二维建图指南](docs/guides/SLAM_2D.md)。
+
 ## 5. 使用地图导航
 
 先在终端 2 按 `Ctrl+C` 停止建图。保留设备程序和 RViz，再在终端 2 执行：
@@ -138,6 +142,9 @@ ros2 launch tianrover_navigation navigation.launch.py map:=$HOME/maps/site_01.ya
 | `TIANROVER_MAP` | 不指定 `map:=` 时使用的地图路径 | `$HOME/maps/site_01.yaml` |
 | `TIANROVER_MAX_SPEED` | 导航线速度上限，单位 m/s | `0.20` |
 | `TIANROVER_MAX_YAW_RATE` | 导航角速度上限，单位 rad/s | `0.40` |
+| `TIANROVER_SCAN_MIN_HEIGHT` / `TIANROVER_SCAN_MAX_HEIGHT` | 雷达坐标系中的二维投影高度带，单位 m | `-0.35` / `0.35` |
+| `TIANROVER_SCAN_RANGE` | 二维扫描距离上限，单位 m | `20.0` |
+| `TIANROVER_MAP_FREE_THRESH` | SLAM Toolbox / Gmapping 保存地图的空闲阈值 | `0.196` |
 
 配置文件使用 `export 配置项=值` 的格式，例如：
 
@@ -146,6 +153,12 @@ export TIANBOT_NAME=mars
 export TIANROVER_USE_ZED=false
 export TIANROVER_MAP=$HOME/maps/site_01.yaml
 ```
+
+已有车辆升级源码时会保留外部配置，新的默认值不会覆盖它。若原文件仍设置投影高度带为
+`-0.10` / `0.10`，需按本车雷达安装情况调整；Helios 16 近水平束线在该高度带内
+约到 5.7 m 就会被过滤。当前默认 ±0.35 m 用于覆盖约 20 m 的束线高度偏移，
+不代表已完成 20 m 实测验收。详见[部署说明](docs/development/DEPLOYMENT.md)。
+修改后在启动程序的终端重新加载工作区环境，再重启对应程序；仅修改文件不会更新已运行节点。
 
 ## 常见问题
 

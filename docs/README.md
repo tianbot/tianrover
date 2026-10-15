@@ -24,6 +24,7 @@
 | [部署与硬件适配](development/DEPLOYMENT.md) | 源码构建、驱动补丁、配置契约、组件扩展及回退 |
 | [三维依赖构建](development/DEPENDENCIES_3D.md) | 三维依赖导入、补丁和编译 |
 | [多包重构验证](development/VALIDATION_REFACTOR.md) | 当前拆包、网格和跨包测试证据及未执行范围 |
+| [雷达投影范围检查](development/SLAM_CORRIDOR_RANGE_AUDIT.md) | Helios 16 高度过滤、静态采样、配置重载及未验证范围 |
 | [基础验证记录](development/VALIDATION.md) | 历史软件与传感器检查及其边界 |
 | [三维验证记录](development/VALIDATION_3D.md) | 三维链路和标定相关验证 |
 | [研发待办](development/TODO.md) | 后续定位方案、标定与现场验收事项 |
